@@ -1,2 +1,4 @@
 theme: night
 slide-number: true
+logo: assets/logo.png
+footnote: "© 2019 nasa"
