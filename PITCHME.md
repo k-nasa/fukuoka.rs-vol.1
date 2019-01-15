@@ -125,7 +125,7 @@ fn crate(path: &Path) {
 ### 自信過剰すぎ
 せめてunwrapしようよ
 
-![私失敗しないので] (assets/dr_x.jpg)
+![私失敗しないので](assets/dr_x.jpg)
 
 ---
 
