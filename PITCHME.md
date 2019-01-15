@@ -106,6 +106,7 @@ match File::open("hoge") {
 ### 初心者あるある(私だけかも？)
 
 全部Resultを返すやつ
+
 え。全部成功するの前提？
 
 ```
@@ -142,6 +143,7 @@ fn crate(path: &Path) {
     File::create(path.join("config.toml"));
 }
 ```
+---
 
 ### 素直にResultでよくね？
 
