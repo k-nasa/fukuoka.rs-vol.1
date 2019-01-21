@@ -180,6 +180,8 @@ fn create_project_dir(path: &Path) -> Result<(), Error> {
 ```
 @[1]
 
+---
+
 ### そうも行かない時がある
 Error型にもいろいろある
 
