@@ -207,7 +207,7 @@ Failureとは?
 実験的な新しいエラー処理ライブラリ
 
 failure::Errorを使うとfailure::Fail traitを実装してるやつをいい感じにさばける。
-
+```
 fn create_project_dir(path: &Path) -> Result<(), failuer::Error> {
     create_dir(path)?;
     create_dir(path.join("contents"))?;
