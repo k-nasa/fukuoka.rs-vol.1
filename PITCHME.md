@@ -27,7 +27,6 @@ Github: k-nasa
 ### 一旦Result型について
 
 Result型はエラーになる可能性を示す列挙型
-(HaskellでいうEither)
 
 たしかこんな定義
 
@@ -180,3 +179,58 @@ fn create_project_dir(path: &Path) -> Result<(), Error> {
 }
 ```
 @[1]
+
+### そうも行かない時がある
+Error型にもいろいろある
+
+```
+fn create_project_dir(path: &Path) -> Result<(), ここを迷う> {
+    create_dir(path)?;
+    create_dir(path.join("contents"))?;
+    create_dir(path.join("layouts"))?;
+    create_dir(path.join("public"))?;
+    create_dir(path.join("assets"))?;
+
+    File::create(path.join("config.toml"))?;
+
+    Ok(())
+}
+```
+@[1]
+
+---
+
+### そこでFailureですよ
+Failureとは?
+
+実験的な新しいエラー処理ライブラリ
+
+failure::Errorを使うとfailure::Fail traitを実装してるやつをいい感じにさばける。
+
+fn create_project_dir(path: &Path) -> Result<(), failuer::Error> {
+    create_dir(path)?;
+    create_dir(path.join("contents"))?;
+    create_dir(path.join("layouts"))?;
+    create_dir(path.join("public"))?;
+    create_dir(path.join("assets"))?;
+
+    File::create(path.join("config.toml"))?;
+
+    Ok(())
+}
+```
+---
+
+### 独自エラーも簡単に
+
+```rust
+#[derive(Debug, Fail)]
+enum CliError {
+  #[fail(display = "{:?}", error)]
+  Hoge { error: std::io::Error }
+  };
+```
+
+---
+### まとめ
+Failuerですよ！
