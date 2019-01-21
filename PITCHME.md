@@ -1,4 +1,4 @@
-## RustのResult型についての話
+## Rustのエラーハンドリングについての話
 
 ---
 
@@ -9,6 +9,8 @@ name: nasa
 福岡生まれ福岡育ち
 
 Q.英語喋れんの？ A.無理だ
+
+ONE OK ROCKを聞きながら奇声を上げながらコード書いてる
 
 Rustでコマンドラインツールを作って遊んでる
 
@@ -28,6 +30,9 @@ Github: k-nasa
 
 Result型はエラーになる可能性を示す列挙型
 
+- 成功時はOkで
+- 失敗時はErrでくるんであげる
+
 たしかこんな定義
 
 ```
@@ -39,18 +44,10 @@ enum Result<T, E> {
 
 ---
 
-### 一旦Result型について
-成功時はOkで
-
-失敗時はErrでくるんであげる
-
----
-
 ### エラーハンドリングどうしたらいいの？
 
 - unwrap
 - unwrap_or_else
-- unwrap_or_default
 - expect
 - matchで丁寧に
 
@@ -60,6 +57,8 @@ enum Result<T, E> {
 ### unwrap
 無理矢理脱がす
 スタックトレースでちゃう
+
+expectとほぼ一緒
 
 ```
 pub fn unwrap(self) -> T {
