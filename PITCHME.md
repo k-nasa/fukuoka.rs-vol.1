@@ -21,6 +21,7 @@ GitHub: k-nasa
 Note:
 - 母に歌を奇声と間違えた話
 - GithubID載せてるのでよかったらコマンドラインツールを使ってみて
+- Cargoのinsightsのpulus
 
 ---
 
@@ -119,7 +120,6 @@ match File::open("hoge") {
   Ok(_) => (),
   Err(e) => eprintln!("{}", e),
 }
-
 ```
 
 ---
