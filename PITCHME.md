@@ -18,6 +18,9 @@ Twitter: @nasa_desu
 
 Github: k-nasa
 
+Note:
+- てすてす
+
 ---
 
 ### 今日の注意
