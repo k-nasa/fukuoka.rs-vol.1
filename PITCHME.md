@@ -16,7 +16,7 @@ Rustでコマンドラインツールを作って遊んでる
 
 Twitter: @nasa_desu
 
-Github: k-nasa
+GitHub: k-nasa
 
 Note:
 - 母に歌を奇声と間違えた話
@@ -31,11 +31,16 @@ Note:
 
 ![温かい目](assets/atatakaime.gif)
 
+Note:
+- Rustやったことない人、やりたての人向けの話
+- こんな事知ってるわ！って人は,,,
+- 自分自身も初心者です温かい目を忘れずに
+
 ---
 
 ### 一旦Result型について
 
-Result型はエラーになる可能性を示す列挙型
+Result型はエラーになる可能性を示すジェネリクス列挙型
 
 - 成功時はOkで
 - 失敗時はErrでくるんであげる
@@ -60,12 +65,15 @@ enum Result<T, E> {
 
 一個ずつ見ていく
 
+Note:
+- これらはよく使うやつ
+
 ---
 ### unwrap
 無理矢理脱がす
 スタックトレースでちゃう
 
-expectとほぼ一緒
+expectはunwrapとほぼ一緒(unwrap_failedにわたすメッセージを指定できる)
 
 ```
 pub fn unwrap(self) -> T {
@@ -80,9 +88,15 @@ fn unwrap_failed<E: fmt::Debug>(msg: &str, error: E) -> ! {
 }
 ```
 
+Note:
+- 値を無理やり取りたい時に使える
+- 普通にpanicするので、あんまよくない
+
 ---
 
 ### unwrap_or_else
+
+関数を受け取ってそれをeに適用する
 
 ```rust
 pub fn unwrap_or_else<F: FnOnce(E) -> T>(self, op: F) -> T {
@@ -98,6 +112,8 @@ pub fn unwrap_or_else<F: FnOnce(E) -> T>(self, op: F) -> T {
 ### match
 一番丁寧なやつ
 
+Resultに定義されたメソッドじゃやりきれないときはこれ
+
 ```rust
 match File::open("hoge") {
   Ok(_) => (),
@@ -108,6 +124,9 @@ match File::open("hoge") {
 
 ---
 
+自分のしてしまったミスはもしかしたら初心者あるあるかもしれないので紹介
+
+---
 ### 初心者あるある(私だけかも？)
 
 全部Resultを返すやつ
@@ -133,6 +152,9 @@ fn crate(path: &Path) {
 
 ![私失敗しないので](assets/dr_x.jpg)
 
+Note:
+某大門未知子のような自信プリだが、失敗に築けない
+
 ---
 
 ### イケてない
@@ -148,6 +170,10 @@ fn crate(path: &Path) {
     File::create(path.join("config.toml"));
 }
 ```
+
+Note:
+- 昔の私、「エラーハンドリング大事や！」
+
 ---
 
 ### 素直にResultでよくね？
@@ -166,25 +192,20 @@ fn create_project_dir(path: &Path) -> Result<(), Error> {
 }
 ```
 
----
-
-### そうも行かない時がある
-Error型にもいろいろある
-
+?はこんな定義
 ```
-fn create_project_dir(path: &Path) -> Result<(), Error> {
-    create_dir(path)?;
-    create_dir(path.join("contents"))?;
-    create_dir(path.join("layouts"))?;
-    create_dir(path.join("public"))?;
-    create_dir(path.join("assets"))?;
-
-    File::create(path.join("config.toml"))?;
-
-    Ok(())
+match result {
+  Ok(t) => t,
+  Err(e) => return e,
 }
 ```
-@[1]
+
+Note:
+正確にはerror時に返り値への暗黙的な変換が行われる
+
+---
+
+## ?使えばいい感じになる！
 
 ---
 
