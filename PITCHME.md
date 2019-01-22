@@ -21,7 +21,6 @@ Github: k-nasa
 ---
 
 ### 今日の注意
-- 大した話はできませんので注意
 - 間違ったことを話してたらマサカリをぶん投げてください
 
 ---
@@ -206,6 +205,10 @@ Failureとは?
 
 実験的な新しいエラー処理ライブラリ
 
+- failure::Error型とfailuer::Fail traitを提供しているやつ
+
+---
+
 failure::Errorを使うとfailure::Fail traitを実装してるやつをいい感じにさばける。
 ```
 fn create_project_dir(path: &Path) -> Result<(), failuer::Error> {
@@ -229,9 +232,18 @@ fn create_project_dir(path: &Path) -> Result<(), failuer::Error> {
 enum CliError {
   #[fail(display = "{:?}", error)]
   Hoge { error: std::io::Error }
+
+  #[fail(display = "invalid input")]
+  InvalidInput,
   };
+}
+
+impl From for CliError {
+  fn from(hoge) {
+    hoge
+  }
 ```
 
 ---
 ### まとめ
-Failuerですよ！
+Failureですよ！
